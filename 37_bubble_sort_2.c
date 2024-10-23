@@ -1,3 +1,4 @@
+//optimise bubble sort code
 #include <stdio.h>
 void display(int arr[], int size)
 {
@@ -11,9 +12,9 @@ void display(int arr[], int size)
 }
 void bubble_sort(int arr[], int size) // 5
 {
-    int i, j, temp;
+    int i, j, temp,swap=1;
     //  0   1    2    3   4
-    // 3,   15,   15,  45,  56
+    //  3,   15,   20,  45,  56
     for (i = 0; i < size - 1; i++) //4    i<4
     {
         for (j = 0; j < size - (i + 1); j++) //1   j<1
@@ -23,9 +24,13 @@ void bubble_sort(int arr[], int size) // 5
                 temp = arr[j];//56
                 arr[j] = arr[j + 1];//15
                 arr[j + 1] = temp;//56
+                swap=0;
             }
         }
-
+        if(swap==1)
+        {
+            break;
+        }
 
     }
 
