@@ -45,6 +45,7 @@ void quick_sort(int arr[], int low, int high) // 5
     if (low < high)
     {
         particianIndex = partician(arr, low, high);
+        display(arr,10);
         quick_sort(arr,low,particianIndex-1);
         quick_sort(arr,particianIndex+1,high);
     }
