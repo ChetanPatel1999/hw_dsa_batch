@@ -1,6 +1,8 @@
 #include <stdio.h>
 void merging(int a1[], int a2[], int arr[], int s1, int s2)
 {
+    //a1 ={3, 5, 6, 78, 90};
+   // a2 ={2, 45, 200, 500, 600, 800};
     int i = 0, j = 0, k = 0;
     while (i < s1 && j < s2)
     {
