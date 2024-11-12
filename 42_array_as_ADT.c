@@ -7,40 +7,81 @@ struct myarray
     int u_size;
     int *ptr;
 };
-void createarray(struct myarray *arr, int t, int s)
+void createarray(struct myarray *a, int t, int s)
 {
-    arr->t_size = t;
-    arr->u_size = s;
-    arr->ptr = (int *)malloc(t * sizeof(int));
+    a->t_size = t;
+    a->u_size = s;
+    a->ptr = (int *)malloc(t * sizeof(int));
 }
-void setvalue(struct myarray *arr)
+void setvalue(struct myarray *a)
 {
     int i;
-    int *temp = arr->ptr;
-    for (i = 0; i < arr->u_size; i++)
+    printf("enter array element : ");
+    for (i = 0; i < a->u_size; i++) // 1
     {
-        scanf("%d", arr->ptr); // 400
-        arr->ptr++;
+        scanf("%d", &a->ptr[i]);
     }
-    arr->ptr = temp;
 }
-void dipslay(struct myarray *arr)
+void dipslay(struct myarray *a)
 {
     int i;
-    int *temp = arr->ptr;
     printf("array element are : ");
-    for (i = 0; i < arr->u_size; i++)
+    for (i = 0; i < a->u_size; i++) // 5
     {
-        printf("%d ", *(arr->ptr)); // 400
-        arr->ptr++;
+        printf("%d ", a->ptr[i]); //
     }
     printf("\n");
-    arr->ptr = temp;
 }
+void insert_last(struct myarray *a, int val)
+{
+    if (a->u_size < a->t_size)
+    {
+        a->ptr[a->u_size] = val;
+        a->u_size++; // 8
+    }
+    else
+    {
+        printf("array adts is full\n");
+    }
+}
+void delete_last(struct myarray *a)
+{
+    if (a->u_size >= 0)
+    {
+        a->u_size--; // 4
+    }
+    else
+    {
+        printf("array adts is empty\n");
+    }
+}
+void insert_at_index(struct myarray *a, int index,int val)
+{
+    int i;
+  if(a->u_size<a->t_size)
+  {
+     for(i=a->u_size-1;i>=index;i--)//1
+     {
+        a->ptr[i+1]=a->ptr[i];
+     }
+     a->ptr[index]=val;
+     a->u_size++;
+  }
+  else{
+     printf("array adts is full\n");
+  }
+}
+void delete_at_index(struct myarray *a, int index);
+void search(struct myarray *a, int s);
 void main()
 {
     struct myarray arr;
     createarray(&arr, 8, 5);
-    setvalue(&arr);
-    dipslay(&arr);
+    setvalue(&arr); // 12 34 56 78 90
+    dipslay(&arr);  // 12 34 56 78 90
+    insert_at_index(&arr,2,500);
+    dipslay(&arr);// 12 34 500 56 78 90
+    insert_at_index(&arr,3,900);
+    dipslay(&arr);// 12 34 500 900 56 78 90
+
 }
