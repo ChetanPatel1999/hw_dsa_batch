@@ -6,7 +6,8 @@ struct node
    int data;
    struct node *next;
 };
-void display(struct node *head)
+struct node * head=NULL;
+void display()
 {
    struct node * temp;
    temp=head;
@@ -19,7 +20,7 @@ void display(struct node *head)
 }
 void main()
 {
-   struct node *head, *second, *third, *fourth;
+   struct node *second, *third, *fourth;
    head = (struct node *)malloc(sizeof(struct node));
    second = (struct node *)malloc(sizeof(struct node));
    third = (struct node *)malloc(sizeof(struct node));
@@ -32,6 +33,6 @@ void main()
    third->next=fourth;
    fourth->data=78;
    fourth->next=NULL;
-   display(head);
+   display();
 }
    
