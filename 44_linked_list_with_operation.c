@@ -148,26 +148,108 @@ void delete_at_last()
         printf("please frist creat list after delete\n");
     }
 }
-void insert_at_indext()
+void insert_at_index()
 {
     if (head != NULL)
     {
-        struct node  *new, *temp, *prev;
-        int index;
+        struct node *new, *temp, *prev;
+        int index, c = 0, t, num;
         printf("enter index : ");
-        scanf("%d",&index);
-        if(index==0)
+        scanf("%d", &index);
+        if (index == 0)
         {
             insert_at_frist();
         }
-        else{
-
-
+        else
+        {
+            temp = head;
+            while (temp != NULL)
+            {
+                c++;
+                temp = temp->next;
+            }
+            if (index == c)
+            {
+                insert_at_last();
+            }
+            else if (index > c)
+            {
+                printf("please enter index less than %d\n", c + 1);
+            }
+            else
+            {
+                new = (struct node *)malloc(sizeof(struct node));
+                printf("enter a num : ");
+                scanf("%d", &num);
+                new->data = num;
+                new->next = NULL;
+                // index=2
+                temp = head;
+                t = 0;
+                while (t < index)
+                {
+                    t++;
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = new;
+                new->next = temp;
+            }
         }
     }
     else
     {
         printf("frist create list than insert\n");
+    }
+}
+void delete_at_index()
+{
+    if (head != NULL)
+    {
+        int index, c, t;
+        struct node *temp, *prev;
+        printf("enter index : ");
+        scanf("%d", &index);
+        if (index == 1)
+        {
+            delete_at_frist();
+        }
+        else
+        {
+            c = 0;
+            temp = head;
+            while (temp != NULL)
+            {
+                c++;
+                temp = temp->next;
+            }
+            if (index == c)
+            {
+                delete_at_last();
+            }
+            else if (index > c)
+            {
+                printf("please enter index less than %d\n", c + 1);
+            }
+            else
+            {
+                t = 1;
+                temp = head;
+                while (t < index)
+                {
+                    t++;
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = temp->next;
+                printf("%d element is deleted \n", temp->data);
+                free(temp);
+            }
+        }
+    }
+    else
+    {
+        printf("frist create list than delete\n");
     }
 }
 void main()
@@ -183,6 +265,7 @@ void main()
         printf("press 5 for insert at last  in list \n");
         printf("press 6 for delete at last  in list \n");
         printf("press 7 for insert at particuler index in list \n");
+        printf("press 8 for delete at particuler index in list \n");
         printf("press 10 for exit \n");
         printf("choose any option  : ");
         scanf("%d", &num);
@@ -208,7 +291,10 @@ void main()
             delete_at_last();
             break;
         case 7:
-            insert_at_indext();
+            insert_at_index();
+            break;
+        case 8:
+            delete_at_index();
             break;
         case 10:
             exit(0);
