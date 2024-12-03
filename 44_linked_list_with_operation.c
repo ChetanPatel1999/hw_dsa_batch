@@ -252,6 +252,36 @@ void delete_at_index()
         printf("frist create list than delete\n");
     }
 }
+void search()
+{
+    if(head!=NULL)
+    {
+           int num,f=0;
+           struct node *temp;
+           printf("enter a num for search : ");
+           scanf("%d",&num);
+           temp=head;
+           while(temp!=NULL)
+           {
+            if(temp->data==num)
+            {
+                f=1;
+                break;
+            }
+            temp=temp->next;
+           }
+           if(f==1)
+           {
+            printf("element is find\n");
+           }
+           else{
+            printf("element is not find\n");
+           }
+    }
+    else{
+        printf("frist create linked list than search\n");
+    }
+}
 void main()
 {
     int num;
@@ -266,9 +296,10 @@ void main()
         printf("press 6 for delete at last  in list \n");
         printf("press 7 for insert at particuler index in list \n");
         printf("press 8 for delete at particuler index in list \n");
+        printf("press 9 for search number in list \n");
         printf("press 10 for exit \n");
         printf("choose any option  : ");
-        scanf("%d", &num);
+        scanf("%d", &num); // 10
         printf("\n");
         switch (num)
         {
@@ -295,6 +326,9 @@ void main()
             break;
         case 8:
             delete_at_index();
+            break;
+        case 9:
+            search();
             break;
         case 10:
             exit(0);

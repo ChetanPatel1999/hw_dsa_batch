@@ -1,1 +1,1 @@
-temp->data
+ 10 for exit \n")
