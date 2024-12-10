@@ -18,7 +18,8 @@ void display()
         {
             printf("%d ", temp->data);
             temp = temp->next;
-        } while (temp != head);
+        }
+         while (temp != head);
         printf("\n");
     }
     else
@@ -159,7 +160,7 @@ void insert_at_index()
     if (head != NULL)
     {
         struct node *new, *temp, *prev;
-        int index, c = 0, t, num;
+        int index, c, t, num;
         printf("enter index : ");
         scanf("%d", &index);
         if (index == 0)
@@ -168,8 +169,9 @@ void insert_at_index()
         }
         else
         {
-            temp = head;
-            while (temp != NULL)
+            temp = head; // 1200
+            c = 1;
+            while (temp->next != head)
             {
                 c++;
                 temp = temp->next;
@@ -192,11 +194,11 @@ void insert_at_index()
                 // index=2
                 temp = head;
                 t = 0;
-                while (t < index)
+                while (t < index) // 1<2
                 {
-                    t++;
-                    prev = temp;
-                    temp = temp->next;
+                    t++;               // 2
+                    prev = temp;       // 900
+                    temp = temp->next; // 5600
                 }
                 prev->next = new;
                 new->next = temp;
@@ -206,6 +208,88 @@ void insert_at_index()
     else
     {
         printf("frist create list than insert\n");
+    }
+}
+void delete_at_index()
+{
+    if (head != NULL)
+    {
+        int index, c, t;
+        struct node *temp, *prev;
+        printf("enter index : ");
+        scanf("%d", &index);
+        if (index == 1)
+        {
+            delete_at_frist();
+        }
+        else
+        {
+            c = 1;
+            temp = head;
+            while (temp->next != head)
+            {
+                c++;
+                temp = temp->next;
+            }
+            if (index == c)
+            {
+                delete_at_last();
+            }
+            else if (index > c)
+            {
+                printf("please enter index less than %d\n", c + 1);
+            }
+            else
+            {
+                t = 1;
+                temp = head;
+                while (t < index)
+                {
+                    t++;
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = temp->next;
+                printf("%d element is deleted \n", temp->data);
+                free(temp);
+            }
+        }
+    }
+    else
+    {
+        printf("frist create list than delete\n");
+    }
+}
+void search()
+{
+    if (head != NULL)
+    {
+        int num, f = 0;
+        struct node *temp;
+        printf("enter a num for search : ");
+        scanf("%d", &num);
+        temp = head;
+        do
+        {
+            if (temp->data == num)
+            {
+                f = 1;
+                break;
+            }
+            temp = temp->next;
+        } while (temp!= head);
+        if (f == 1)
+        {
+            printf("element is find\n");
+        }
+        else
+        {
+            printf("element is not find\n");
+        }
+    }
+    else
+    {
+        printf("frist create linked list than search\n");
     }
 }
 void main()
@@ -221,8 +305,8 @@ void main()
         printf("press 5 for insert at last  in list \n");
         printf("press 6 for delete at last  in list \n");
         printf("press 7 for insert at particuler index in list \n");
-        // printf("press 8 for delete at particuler index in list \n");
-        // printf("press 9 for search number in list \n");
+        printf("press 8 for delete at particuler index in list \n");
+        printf("press 9 for search number in list \n");
         printf("press 10 for exit \n");
         printf("choose any option  : ");
         scanf("%d", &num); // 10
@@ -250,12 +334,12 @@ void main()
         case 7:
             insert_at_index();
             break;
-        // case 8:
-        //     delete_at_index();
-        //     break;
-        // case 9:
-        //     search();
-        //     break;
+        case 8:
+            delete_at_index();
+            break;
+        case 9:
+            search();
+            break;
         case 10:
             exit(0);
         default:
