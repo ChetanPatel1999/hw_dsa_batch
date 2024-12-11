@@ -1,1 +1,1 @@
- 10 for exit \n")
+ 2 for display linked list \n");
