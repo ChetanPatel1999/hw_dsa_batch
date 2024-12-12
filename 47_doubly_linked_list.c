@@ -115,21 +115,20 @@ void insert_at_last()
     if (head != NULL)
     {
         int num;
-        struct node *new,*temp;
+        struct node *new, *temp;
         new = (struct node *)malloc(sizeof(struct node));
         printf("enter a num : ");
         scanf("%d", &num);
         new->data = num;
         new->next = NULL;
         new->prev = NULL;
-        temp=head;
-        while(temp->next!=NULL)
+        temp = head;
+        while (temp->next != NULL)
         {
-            temp=temp->next;
+            temp = temp->next;
         }
-        temp->next=new;
-        new->prev=temp;
-       
+        temp->next = new;
+        new->prev = temp;
     }
     else
     {
@@ -143,14 +142,13 @@ void delete_at_last()
     {
         struct node *temp;
         temp = head;
-        while(temp->next!=NULL)
+        while (temp->next != NULL)
         {
-            temp=temp->next;
+            temp = temp->next;
         }
-        temp->prev->next=NULL;
+        temp->prev->next = NULL;
         printf("%d is deleted \n", temp->data);
         free(temp);
-    
     }
     else
     {
@@ -201,16 +199,100 @@ void insert_at_index()
                     t++;
                     temp = temp->next;
                 }
-                new->prev=temp->prev;
-                temp->prev=new;
-                new->next=temp;
-                new->prev->next=new;  
+                new->prev = temp->prev;
+                temp->prev = new;
+                new->next = temp;
+                new->prev->next = new;
             }
         }
     }
     else
     {
         printf("frist create list than insert\n");
+    }
+}
+void delete_at_index()
+{
+    if (head != NULL)
+    {
+        int index, c, t;
+        struct node *temp;
+        printf("enter index : ");
+        scanf("%d", &index);
+        if (index == 1)
+        {
+            delete_at_frist();
+        }
+        else
+        {
+            c = 0;
+            temp = head;
+            while (temp != NULL)
+            {
+                c++; // 1
+                temp = temp->next;
+            }
+            // c//4
+            if (index == c)
+            {
+                delete_at_last();
+            }
+            else if (index > c)
+            {
+                printf("please enter index less than %d\n", c + 1);
+            }
+            else
+            {
+                t = 1;
+                temp = head;      // 1200
+                while (t < index) // 1 < 2
+                {
+                    t++;               // 2
+                    temp = temp->next; // 900
+                }
+                // temp//900
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+                printf("%d element is deleted\n", temp->data);
+                free(temp);
+            }
+        }
+    }
+    else
+    {
+        printf("frist create list than delete\n");
+    }
+}
+void search()
+{
+    if (head != NULL)
+    {
+        int num, f = 0;
+        struct node *temp;
+        printf("enter a num for search : ");
+        scanf("%d", &num);
+        temp = head;
+        while (temp != NULL)
+        {
+            if (temp->data == num)
+            {
+                f = 1;
+                break;
+            }
+            temp = temp->next;
+        }
+        if (f == 1)
+        {
+            printf("element is find\n");
+        }
+        else
+        {
+            printf("element is not find\n");
+        }
+    }
+    else
+    {
+        printf("frist create linked list than search\n");
     }
 }
 void main()
@@ -227,8 +309,8 @@ void main()
         printf("press 5 for insert at last  in list \n");
         printf("press 6 for delete at last  in list \n");
         printf("press 7 for insert at particuler index in list \n");
-        // printf("press 8 for delete at particuler index in list \n");
-        // printf("press 9 for search number in list \n");
+        printf("press 8 for delete at particuler index in list \n");
+        printf("press 9 for search number in list \n");
         printf("press 10 for exit \n");
         printf("choose any option  : ");
         scanf("%d", &num); // 10
@@ -256,12 +338,12 @@ void main()
         case 7:
             insert_at_index();
             break;
-        // case 8:
-        //     delete_at_index();
-        //     break;
-        // case 9:
-        //     search();
-        //     break;
+        case 8:
+            delete_at_index();
+            break;
+        case 9:
+            search();
+            break;
         case 10:
             exit(0);
         default:
