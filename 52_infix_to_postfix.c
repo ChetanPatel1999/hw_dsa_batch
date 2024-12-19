@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 struct node
 {
     char data;
@@ -54,45 +55,13 @@ char pop()
         return n;
     }
 }
-int match(char a, char b)
+int stack_top()
 {
-    if (a == ')' && b == '(')
-    {
-        return 1;
-    }
-    if (a == ']' && b == '[')
-    {
-        return 1;
-    }
-    if (a == '}' && b == '{')
-    {
-        return 1;
-    }
-    return 0;
+    return top->data;
 }
-int perenthese_match(char exp[]) //")((12+5)(56+9))"
+int operater(char ch)
 {
-    int i;
-    for (i = 0; exp[i] != '\0'; i++)
-    {
-        if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{')
-        {
-            push(exp[i]);
-        }
-        else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}')
-        {
-            if (is_empty())
-            {
-                return 0;
-            }
-            char ch = pop();
-            if (!match(exp[i], ch))
-            {
-                return 0;
-            }
-        }
-    }
-    if (is_empty())
+    if (ch == '+' || ch == '-' || ch == '*' || ch == '/')
     {
         return 1;
     }
@@ -101,15 +70,63 @@ int perenthese_match(char exp[]) //")((12+5)(56+9))"
         return 0;
     }
 }
+int precedence(char ch)
+{
+    if(ch=='/' || ch =='*')
+    {
+        return 3;
+    }
+     if(ch=='+' || ch =='-')
+    {
+        return 2;
+    }
+    return 0;
+}
+char *infix_to_post(char infix[]) //"x-y/z-k*d"
+{
+    char *postfix = (char *)malloc(strlen(infix) * sizeof(char));
+    int i = 0, j = 0;
+    while (infix[i] != '\0')
+    {
+        if (!operater(infix[i]))
+        {
+            postfix[j] = infix[i];
+            i++;
+            j++;
+        }
+        else
+        {
+            if (is_empty())
+            {
+                push(infix[i]);
+                i++;
+            }
+            else
+            {
+                if (precedence(infix[i]) > precedence(stack_top()))
+                {
+                    push(infix[i]);
+                    i++;
+                }
+                else
+                {
+                    postfix[j] = pop();
+                    j++;
+                }
+            }
+        }
+    }
+    while(!is_empty())
+    {
+       postfix[j]=pop();
+       j++;
+    }
+    postfix[j]='\0';
+    return postfix;
+}
 void main()
 {
-    char exp[30] = "{12+([8*(12+5)])}";
-    if (perenthese_match(exp))
-    {
-        printf("perenthese is matched");
-    }
-    else
-    {
-        printf("perenthese is not matched");
-    }
+    char infix[] = "A*B+C*d";
+    printf("infix = %s\n", infix);
+    printf("postfix = %s", infix_to_post(infix));
 }
