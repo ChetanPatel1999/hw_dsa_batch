@@ -82,8 +82,9 @@ int precedence(char ch)
     }
     return 0;
 }
-char *infix_to_post(char infix[]) //"x-y/z-k*d"
+char *infix_to_prefix(char infix[]) //"x-y/z-k*d"
 {
+    strrev(infix);//frist reverse the infix
     char *postfix = (char *)malloc(strlen(infix) * sizeof(char));
     int i = 0, j = 0;
     while (infix[i] != '\0')
@@ -103,7 +104,7 @@ char *infix_to_post(char infix[]) //"x-y/z-k*d"
             }
             else
             {
-                if (precedence(infix[i]) > precedence(stack_top()))
+                if (precedence(infix[i]) >= precedence(stack_top()))
                 {
                     push(infix[i]);
                     i++;
@@ -122,11 +123,12 @@ char *infix_to_post(char infix[]) //"x-y/z-k*d"
        j++;
     }
     postfix[j]='\0';
+    strrev(postfix);// now reverse postfix
     return postfix;
 }
 void main()
 {
-    char infix[] = "A*B+C*d";
+    char infix[] = "A+B+C+D";
     printf("infix = %s\n", infix);
-    printf("postfix = %s", infix_to_post(infix));
+    printf("prefix = %s", infix_to_prefix(infix));
 }
