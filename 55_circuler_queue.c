@@ -10,7 +10,7 @@ struct queue
 };
 int is_empty(struct queue *q)
 {
-    if (q->front == -1 || q->front > q->rear)
+    if (q->front == -1)
     {
         return 1;
     }
@@ -21,7 +21,7 @@ int is_empty(struct queue *q)
 }
 int is_full(struct queue *q)
 {
-    if (q->rear == (q->size - 1))
+    if ((q->rear + 1) % q->size == q->front)
     {
         return 1;
     }
@@ -45,7 +45,7 @@ void enqueue(struct queue *q, int num)
         }
         else
         {
-            q->rear++;
+            q->rear = (q->rear + 1) % q->size;
         }
         q->arr[q->rear] = num;
     }
@@ -56,13 +56,22 @@ int dequeue(struct queue *q)
     if (is_empty(q))
     {
         printf("queue is empty\n");
+        return a;
     }
     else
     {
-        a = q->arr[q->front];
-        q->front++;
+        a = q->arr[q->front]; // 67
+        if (q->front == q->rear)
+        {
+            q->front = -1;
+            q->rear = -1;
+        }
+        else
+        {
+            q->front = (q->front + 1) % q->size;
+        }
+        return a;
     }
-    return a;
 }
 void main()
 {
@@ -80,5 +89,10 @@ void main()
     printf("%d element is dequeue\n", dequeue(&q));
     printf("%d element is dequeue\n", dequeue(&q));
     enqueue(&q, 100);
-
+    enqueue(&q, 400);
+    enqueue(&q, 455);
+    enqueue(&q, 555);
+    printf("%d element is dequeue\n", dequeue(&q));
+    printf("%d element is dequeue\n", dequeue(&q));
+    enqueue(&q,900);
 }
