@@ -19,7 +19,6 @@ struct node *insertnode(struct node *root, int data)
     {
         return createnode(data);
     }
-    //         45       79
     else if (root->data > data)
     {
         root->left = insertnode(root->left, data);
