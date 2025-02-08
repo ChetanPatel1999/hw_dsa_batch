@@ -81,22 +81,22 @@ void main()
         {0, 0, 0, 0, 1, 0, 0},
         {0, 0, 0, 0, 1, 0, 0},
     };
-    int city[][15]={"ujjain","mahu","indore","ratalam","bhopal","dewase","pithampur"};
+    char city[][15] = {"ujjain", "mahu", "indore", "ratalam", "bhopal", "dewase", "pithampur"};
     int visited[] = {0, 0, 0, 0, 0, 0, 0};
-    int i=4,j;
-    enqueue(&ex_q,i);
-    visited[i]=1;
-    printf("%d ",i);
-    while(!is_empty(&ex_q))
+    int i = 4, j;
+    enqueue(&ex_q, i);
+    visited[i] = 1;
+    printf("%d ", i);
+    while (!is_empty(&ex_q))
     {
-        int node=dequeue(&ex_q);
-        for(j=0;j<7;j++)
+        int node = dequeue(&ex_q);
+        for (j = 0; j < 7; j++)
         {
-            if(adjmat[node][j]==1 && visited[j]==0)
+            if (adjmat[node][j] == 1 && visited[j] == 0)
             {
-               enqueue(&ex_q,j);
-               visited[j]=1;
-               printf("%d ",j);
+                enqueue(&ex_q, j);
+                visited[j] = 1;
+                printf("%d ", j);
             }
         }
     }
